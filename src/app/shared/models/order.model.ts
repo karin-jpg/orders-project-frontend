@@ -10,10 +10,10 @@ export interface Order {
   status: string;
   deleted: string;
   last_modified: string;
-
 }
 
-export interface OrderResponse {
-  hasNextPage: boolean;
-  orders: Order[];
+
+export interface OrderCancel {
+  affectedRows: number;
+  order: Order
 }

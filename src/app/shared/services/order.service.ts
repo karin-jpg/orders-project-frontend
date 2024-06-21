@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { OrderResponse } from './../models/order.model';
+import { Order, OrderCancel } from './../models/order.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,8 +14,23 @@ export class OrderService {
 
   }
 
-   public getOrders(currentPage: number): Observable<OrderResponse> {
+   public getOrders(): Observable<Order[]> {
     this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.get<OrderResponse>(`http://127.0.0.1:8000/orders/page/${currentPage}`);
+    return this.http.get<Order[]>('http://127.0.0.1:8000/orders');
+  }
+
+  searchOrdersByCustomer(name: string): Observable<Order[]> {
+    const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    return this.http.post<Order[]>('http://127.0.0.1:8000/orders/customer', { name }, { headers });
+  }
+
+  searchOrdersByStatus(status: string): Observable<Order[]> {
+    const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    return this.http.post<Order[]>('http://127.0.0.1:8000/orders/status', { status,  }, { headers });
+  }
+
+  cancelOrder(orderId: number): Observable<OrderCancel> {
+    const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    return this.http.post<OrderCancel>(`http://127.0.0.1:8000/orders/${orderId}/cancel`, { headers });
   }
 }

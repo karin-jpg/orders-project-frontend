@@ -1,3 +1,11 @@
 table {
   width: 100%;
 }
+
+.search-container {
+  margin-bottom: 10px;
+}
+
+.search-container button {
+  margin-right: 15px;
+}

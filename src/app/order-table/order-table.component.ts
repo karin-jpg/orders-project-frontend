@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import {MatTableModule} from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { OrderService } from '../shared/services/order.service';
 import { Order } from '../shared/models/order.model';
+
+
 
 @Component({
   selector: 'app-order-table',
@@ -10,11 +13,15 @@ import { Order } from '../shared/models/order.model';
   styleUrls: ['./order-table.component.css']
 })
 export class OrderTableComponent implements OnInit {
-  // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  displayedColumns: string[] = ['id', 'date', 'customer', 'address1', 'city', 'postcode', 'country', 'amount', 'status', 'deleted', 'last_modified'];
-  dataSource: Order[] = [];
+  displayedColumns: string[] = ['id', 'date', 'customer', 'address1', 'city', 'postcode', 'country', 'amount', 'status', 'deleted', 'last_modified', 'cancel'];
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild('paginator') paginator! : MatPaginator;
   currentPage: number = 1;
   hasNextPage: boolean = false;
+  orders: Order[] = [];
+  customerName: string = '';
+  status: string = '';
+  lastUsedFunction: string = '';
 
   constructor(private orderService: OrderService) {
 
@@ -25,26 +32,44 @@ export class OrderTableComponent implements OnInit {
   }
 
   public getOrders() {
-    this.orderService.getOrders(this.currentPage)
+    this.orderService.getOrders()
     .subscribe((result) => {
-      this.dataSource =  result.orders;
-      this.hasNextPage = result.hasNextPage;
-      console.log(this.dataSource)
+      this.dataSource = new MatTableDataSource(result);
+      this.dataSource.paginator = this.paginator;
     });
   }
 
-  public nextPage(): void {
-    if (this.hasNextPage) {
-      this.currentPage++;
-      this.getOrders();
-    }
+  public cancelOrder(order: Order) {
+    this.orderService.cancelOrder(order.id)
+    .subscribe((result) => {
+      if (result.affectedRows != 0) {
+        order.status = 'cancelled';
+        alert("Order cancelled with success!");
+        return;
+      }
+      alert("Error on cancelling order");
+
+    });
   }
 
-  public previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.getOrders();
-    }
+  public searchByCustomer() {
+    this.orderService.searchOrdersByCustomer(this.customerName)
+      .subscribe((result) => {
+        this.dataSource = new MatTableDataSource(result);
+      });
+  }
+
+  public searchByStatus() {
+    this.orderService.searchOrdersByStatus(this.status)
+      .subscribe((result) => {
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSource.paginator = this.paginator;
+      });
+  }
+
+  public clearFilters() {
+    this.customerName = '';
+    this.status = '';
   }
 
 }
