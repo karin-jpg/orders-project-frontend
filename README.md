@@ -24,6 +24,9 @@ Here, you can see (with a pagination), filter and cancel all of the orders in a 
     ```sh
     npm start
     ```
+
+At this point, you should have this [API](https://github.com/karin-jpg/orders-project-api) running at the same time on PORT 8000 (See the API read.me for more details)
+
 ## Functionality
 
 1. See all of the orders (10 orders per page)
