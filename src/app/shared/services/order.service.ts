@@ -8,29 +8,29 @@ import { Observable } from 'rxjs';
 })
 export class OrderService {
   private headers = new HttpHeaders;
-
+  private apiUrl = 'http://127.0.0.1:8000/orders'
 
   constructor(private http: HttpClient) {
 
   }
 
-   public getOrders(): Observable<Order[]> {
+  public getOrders(): Observable<Order[]> {
     this.headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.get<Order[]>('http://127.0.0.1:8000/orders');
+    return this.http.get<Order[]>(`${this.apiUrl}`);
   }
 
-  searchOrdersByCustomer(name: string): Observable<Order[]> {
+  public searchOrdersByCustomer(name: string): Observable<Order[]> {
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    return this.http.post<Order[]>('http://127.0.0.1:8000/orders/customer', { name }, { headers });
+    return this.http.post<Order[]>(`${this.apiUrl}/customer`, { name }, { headers });
   }
 
-  searchOrdersByStatus(status: string): Observable<Order[]> {
+  public searchOrdersByStatus(status: string): Observable<Order[]> {
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    return this.http.post<Order[]>('http://127.0.0.1:8000/orders/status', { status,  }, { headers });
+    return this.http.post<Order[]>(`${this.apiUrl}/status`, { status,  }, { headers });
   }
 
-  cancelOrder(orderId: number): Observable<OrderCancel> {
+  public cancelOrder(orderId: number): Observable<OrderCancel> {
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    return this.http.post<OrderCancel>(`http://127.0.0.1:8000/orders/${orderId}/cancel`, { headers });
+    return this.http.post<OrderCancel>(`${this.apiUrl}/${orderId}/cancel`, { headers });
   }
 }
