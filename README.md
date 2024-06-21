@@ -1,27 +1,47 @@
-# SubliminatorAngular
+# Angular Orders Page Documentation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
+## Overview
+This Angular 13 page implemented with DDD provides an interation for the consume of the API https://github.com/karin-jpg/orders-project-api
+Here, you can see (with a pagination), filter and cancel all of the orders in a simple table
 
-## Development server
+## Requirements
+- Node 17 or higher
+- Angular 13
+- NMP 8.5.4 or higher
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Installation
+1. Clone this repository;
 
-## Code scaffolding
+2. Navigate to the project directory:
+    ```sh
+    cd <project_directory>
+    ```
+3. Install dependencies:
+    ```sh
+    npm install
+    ```
+4. Run the local server - if done correctly, it should be available on the http://localhost:4200
+    ```sh
+    npm start
+    ```
+## Functionality
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. See all of the orders (10 orders per page)
+    ![image](https://github.com/karin-jpg/orders-project-frontend/assets/52075166/609139e2-d293-4dbb-b4dc-2e64fc99d6d6)
 
-## Build
+2. Filter by customer name - using a input field that can find by first name, last name or fullname
+   ![image](https://github.com/karin-jpg/orders-project-frontend/assets/52075166/1161d774-46fa-4544-9012-6c95a7f17596)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+3. Filter by order status - using a drop down
+   ![image](https://github.com/karin-jpg/orders-project-frontend/assets/52075166/700ed73d-a634-4c47-b2f1-e0e75f842762)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+4. Clear filter fields - with a click of a button
+   
+5. An in-table button for canceling the order - with a confirm option to avoid any accidents
+   ![image](https://github.com/karin-jpg/orders-project-frontend/assets/52075166/3fa3d218-5995-4dd2-85ea-6d405f2a44d1)
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ 
+### Conclusion
+This Angular page implemented with just the basic of DDD is just a simple co-funcionality to the use of the [Symfony API](https://github.com/karin-jpg/orders-project-api/edit/main/README.md)  
+Follow the provided instructions for installation and usage to get started and remember to have the Symfony API running together!
