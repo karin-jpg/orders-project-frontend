@@ -5,9 +5,9 @@ This Angular 13 page implemented with DDD provides an interation for the consume
 Here, you can see (with a pagination), filter and cancel all of the orders in a simple table
 
 ## Requirements
-- Node 17 or higher
-- Angular 13
-- NMP 8.5.4 or higher
+- [Node 17](https://nodejs.org/pt/blog/release/v17.7.1) or higher
+- [NMP 8.5.4](https://www.npmjs.com/package/npm/v/8.5.4) or higher
+- [Angular 13](https://www.npmjs.com/package/@angular/cli/v/13.0.0)
 
 ## Installation
 1. Clone this repository;
