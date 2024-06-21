@@ -63,3 +63,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<div class="pagination-buttons">
+  <button mat-button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  <button mat-button (click)="nextPage()" [disabled]="!hasNextPage">Next</button>
+</div>

@@ -13,6 +13,7 @@ export class OrderTableComponent implements OnInit {
   // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   displayedColumns: string[] = ['id', 'date', 'customer', 'address1', 'city', 'postcode', 'country', 'amount', 'status', 'deleted', 'last_modified'];
   dataSource: Order[] = [];
+  currentPage: number = 1;
   hasNextPage: boolean = false;
 
   constructor(private orderService: OrderService) {
@@ -24,11 +25,26 @@ export class OrderTableComponent implements OnInit {
   }
 
   public getOrders() {
-    this.orderService.getOrders()
+    this.orderService.getOrders(this.currentPage)
     .subscribe((result) => {
       this.dataSource =  result.orders;
+      this.hasNextPage = result.hasNextPage;
       console.log(this.dataSource)
     });
+  }
+
+  public nextPage(): void {
+    if (this.hasNextPage) {
+      this.currentPage++;
+      this.getOrders();
+    }
+  }
+
+  public previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getOrders();
+    }
   }
 
 }
