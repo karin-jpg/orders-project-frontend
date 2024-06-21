@@ -42,16 +42,19 @@ export class OrderTableComponent implements OnInit {
   }
 
   public cancelOrder(order: Order) {
-    this.orderService.cancelOrder(order.id)
-    .subscribe((result) => {
-      if (result.affectedRows != 0) {
-        order.status = 'cancelled';
-        alert("Order cancelled with success!");
-        return;
-      }
-      alert("Error on cancelling order");
+    if(confirm("Are you sure you want to cancel the order " + order.id + "? \nThis action cannot be undone!")){
+      this.orderService.cancelOrder(order.id)
+      .subscribe((result) => {
+        if (result.affectedRows != 0) {
+          order.status = 'cancelled';
+          alert("Order cancelled with success!");
+          return;
+        }
+        alert("Error on canceling order");
+      });
+    }
 
-    });
+
   }
 
   public searchByCustomer() {
