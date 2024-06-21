@@ -22,6 +22,7 @@ export class OrderTableComponent implements OnInit {
   customerName: string = '';
   status: string = '';
   lastUsedFunction: string = '';
+  tableLength: number = 0;
 
   constructor(private orderService: OrderService) {
 
@@ -36,6 +37,7 @@ export class OrderTableComponent implements OnInit {
     .subscribe((result) => {
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
+      this.tableLength = result.length;
     });
   }
 
@@ -56,6 +58,8 @@ export class OrderTableComponent implements OnInit {
     this.orderService.searchOrdersByCustomer(this.customerName)
       .subscribe((result) => {
         this.dataSource = new MatTableDataSource(result);
+        this.tableLength = result.length;
+        this.dataSource.paginator = this.paginator;
       });
   }
 
@@ -63,6 +67,7 @@ export class OrderTableComponent implements OnInit {
     this.orderService.searchOrdersByStatus(this.status)
       .subscribe((result) => {
         this.dataSource = new MatTableDataSource(result);
+        this.tableLength = result.length;
         this.dataSource.paginator = this.paginator;
       });
   }

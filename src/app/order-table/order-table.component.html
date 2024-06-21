@@ -1,5 +1,5 @@
 <div class="search-container">
-  <input matInput placeholder="Search by Customer Name" [(ngModel)]="customerName">
+  <input style="margin-left: 10px;" matInput placeholder="Search by Customer Name" [(ngModel)]="customerName">
   <button style="margin-left: 5px;" mat-button (click)="searchByCustomer()">Search</button>
   <mat-form-field style="margin-left: 10px;">
     <mat-label>Search by Status</mat-label>
@@ -10,7 +10,7 @@
     </mat-select>
   </mat-form-field>
 
-  <button style="margin-left: 30px;" #clearFilter mat-button (click)="clearFilters(); getOrders()">Clear Filter</button>
+  <button style="margin-left: 30px;" #clearFilter mat-button (click)="clearFilters(); getOrders()">Clear Filters</button>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -88,5 +88,5 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator #paginator [pageSize]="10" aria-label="Select page">
+<mat-paginator #paginator [length]="tableLength" [pageSize]="10" aria-label="Select page">
 </mat-paginator>
